@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apisix-gateway
-  namespace: argocd
+  name: apisix
+  namespace: dev0
 spec:
   project: default
   source:
@@ -14,7 +14,7 @@ spec:
       jsonnet: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: apisix
+    namespace: dev0
   syncPolicy:
     automated:
       prune: true

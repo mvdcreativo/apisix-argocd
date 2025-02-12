@@ -2,7 +2,7 @@ apiVersion: apisix.apache.org/v2
 kind: ApisixUpstream
 metadata:
   name: pokemon-upstream
-  namespace: default
+  namespace: dev0
 spec:
   scheme: https
   nodes:
