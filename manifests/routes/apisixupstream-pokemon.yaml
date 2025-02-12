@@ -1,0 +1,11 @@
+apiVersion: apisix.apache.org/v2
+kind: ApisixUpstream
+metadata:
+  name: pokemon-upstream
+  namespace: default
+spec:
+  scheme: https
+  nodes:
+  - host: pokeapi.co
+    port: 443
+    weight: 100

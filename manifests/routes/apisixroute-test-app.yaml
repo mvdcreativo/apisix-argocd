@@ -1,0 +1,16 @@
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: test-app-route
+  namespace: default
+spec:
+  http:
+  - name: test-app-rule
+    match:
+      hosts:
+      - test-app.example.com
+      paths:
+      - /test
+    backends:
+    - serviceName: test-app
+      servicePort: 80

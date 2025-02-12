@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apisix-ingress-controller
+  namespace: ingress-apisix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apisix-ingress-controller
+  template:
+    metadata:
+      labels:
+        app: apisix-ingress-controller
+    spec:
+      serviceAccountName: apisix-ingress-controller
+      containers:
+      - name: apisix-ingress-controller
+        image: apache/apisix-ingress-controller:latest
+        imagePullPolicy: IfNotPresent
+        args:
+          - --config-path=/etc/apisix/config.yaml
+        volumeMounts:
+          - name: config
+            mountPath: /etc/apisix
+      volumes:
+      - name: config
+        configMap:
+          name: apisix-config
