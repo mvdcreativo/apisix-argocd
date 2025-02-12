@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: apisix-ingress-controller
+  namespace: dev0
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: apisix-ingress-controller-role
+  namespace: dev0
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints", "secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps", "extensions"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apisix.apache.org"]
+    resources: ["apisixroutes", "apisixupstreams", "apisixconsumers", "apisixtls", "apisixpluginconfigs", "apisixglobalrules"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: apisix-ingress-controller-binding
+  namespace: dev0
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: apisix-ingress-controller-role
+subjects:
+  - kind: ServiceAccount
+    name: apisix-ingress-controller
+    namespace: dev0
