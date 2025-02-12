@@ -6,13 +6,18 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/tu-usuario/mi-repo-apisix.git'
-    targetRevision: HEAD
+    repoURL: https://github.com/mvdcreativo/apisix-argocd.git
     path: manifests
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      jsonnet: {}
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: ingress-apisix
+    server: https://kubernetes.default.svc
+    namespace: apisix
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
